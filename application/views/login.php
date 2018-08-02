@@ -46,7 +46,7 @@
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password" onchange="signin()">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -94,8 +94,10 @@
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' /* optional */
     });
-      $('#alertLogin').hide();
+    $('#alertLogin').hide();
   });
+
+  $('#')
 
   function signin(){
       var url = "<?php echo base_url('login/action_login'); ?>";

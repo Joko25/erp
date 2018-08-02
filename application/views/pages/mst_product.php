@@ -191,16 +191,40 @@
     var sts='';
 
     $(function(){
+      // Setup datatables
+      $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings){
+          return {
+              "iStart": oSettings._iDisplayStart,
+              "iEnd": oSettings.fnDisplayEnd(),
+              "iLength": oSettings._iDisplayLength,
+              "iTotal": oSettings.fnRecordsTotal(),
+              "iFilteredTotal": oSettings.fnRecordsDisplay(),
+              "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+              "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+          };
+      };
       table_product = $('#tblmst_product').DataTable({
+        initComplete: function() {
+              var api = this.api();
+              $('#tblmst_product input')
+                  .off('.DT')
+                  .on('input.DT', function() {
+                      api.search(this.value).draw();
+              });
+          },
+              oLanguage: {
+              sProcessing: "loading..."
+          },processing: true,
+          serverSide: true,
         // 'paging'      : true,
-        // 'lengthChange': true,
-        // 'searching'   : true,
+        // 'lengthChange': false,
+        // 'searching'   : false,
         // 'ordering'    : false,
-        // 'info'        : true,
+        // 'info'        : false,
         // 'autoWidth'   : false,
-        "processing": true, //Feature control the processing indicator.
-        "serverSide": true, //Feature control DataTables' server-side processing mode.
-        'ajax':{
+        // "processing"  : true, //Feature control the processing indicator.
+        // "serverSide"  : true, //Feature control DataTables' server-side processing mode.
+        ajax:{
           "url": "<?=base_url()?>pages/getproduct",
           "type": "POST"
         },
@@ -226,7 +250,14 @@
               "targets": [3, 4, 10],
               "visible": false
           }
-        ]
+        ],
+        order: [[1, 'asc']],
+          rowCallback: function(row, data, iDisplayIndex) {
+              var info = this.fnPagingInfo();
+              var page = info.iPage;
+              var length = info.iLength;
+              $('td:eq(0)', row).html();
+          }
       });
       // getselected rows
       $('#tblmst_product tbody').on( 'click', 'tr', function () {

@@ -43,10 +43,11 @@
   </script>
   <script src="<?=base_url();?>assets/class/AjaxFileUpload/ajaxfileupload.js"></script>
   <!-- DataTables -->
+  <script src="<?=base_url();?>assets/class/datatables.19/datatables.min.js"></script>
   <!-- <script src="<?=base_url();?>assets/class/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?=base_url();?>assets/class/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
-  <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
-  <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
+<!--   <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+  <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script> -->
 
   <!-- SlimScroll -->
   <script src="<?=base_url();?>assets/class/jquery-slimscroll/jquery.slimscroll.min.js"></script>

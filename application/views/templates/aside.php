@@ -56,7 +56,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>HRM</span>
+            <i class="fa fa-edit"></i> <span>HRD</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -69,7 +69,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>SRM</span>
+            <i class="fa fa-table"></i> <span>Pembelian</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -83,7 +83,7 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>CRM</span>
+            <span>Penjualan</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -96,7 +96,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-th"></i> <span>TRANSACTION</span>
+            <i class="fa fa-th"></i> <span>Transaksi</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
