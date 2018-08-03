@@ -5,12 +5,9 @@ class M_master extends CI_Model{
 	// GET MASTER
 	public function getuser(){		
 		$this->datatables->select('id, username, full_name, email, status, img');
-        // $this->datatables->add_column('no', '0');
-        $this->datatables->add_column('img', '<img src="'.base_url().'assets/img/$1" width=20> $1', 'img');
-        // $this->datatables->add_column('action', "<a href='javascript:void(0)' onclick='edituser($1)' class='btn btn-success btn-sm'>Edit</a> | <a href='javascript:void(0)' onclick='deleteuser($1)' class='btn btn-danger btn-sm'>Delete</a>", 'id');//anchor('pages/edit_user/$1','Edit',array('class'=>'btn btn-danger btn-sm'))
         $this->datatables->from('admin');
-
-        return print_r($this->datatables->generate());
+        $this->datatables->add_column('img', '<img src="'.base_url().'assets/img/$1" width=20> $1', 'img');
+        return $this->datatables->generate();
 	}
 
 	public function getkat(){

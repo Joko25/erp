@@ -169,17 +169,17 @@
         "processing": true, //Feature control the processing indicator.
        // "serverSide": true, //Feature control DataTables' server-side processing mode.
         'ajax':{
-          "url": "<?=base_url()?>pages/getuser",
+          "url": "<?=base_url()?>user_ctrl/get_user",
           "type": "POST"
         },
         'columns':[
-          {"aaData": "no",width:12},
-          {"aaData": "username",width:100},
-          {"aaData": "full_name",width:100},
-          {"aaData": "email",width:100},
-          {"aaData": "status",width:100},
-          {"aaData": "foto",width:100},
-          {"aaData": "foto",width:100}
+          {"data": "id",width:12},
+          {"data": "username",width:100},
+          {"data": "full_name",width:100},
+          {"data": "email",width:100},
+          {"data": "status",width:100},
+          {"data": "img",width:100},
+          {"data": "img",width:100}
           // ,
           // {"aaData": "action",width:100}
         ],

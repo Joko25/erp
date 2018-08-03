@@ -10,7 +10,13 @@ class User_ctrl extends CI_Controller {
 	}
 
 	public function index(){
+		// header('Content-Type: application/json');
+    	echo $this->m_master->getuser();
+	}
 
+	public function get_user(){
+		header('Content-Type: application/json');
+    	echo $this->m_master->getuser();
 	}
 
 	public function edit(){

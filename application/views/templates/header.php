@@ -30,24 +30,24 @@
   <script src="<?=base_url();?>assets/class/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <script type="text/javascript">
-    jQuery.extend({
-    handleError: function( s, xhr, status, e ) {
-        // If a local callback was specified, fire it
-        if ( s.error )
-            s.error( xhr, status, e );
-        // If we have some XML response text (e.g. from an AJAX call) then log it in the console
-        else if(xhr.responseText)
-            console.log(xhr.responseText);
-    }
-   });
+   //  jQuery.extend({
+   //  handleError: function( s, xhr, status, e ) {
+   //      // If a local callback was specified, fire it
+   //      if ( s.error )
+   //          s.error( xhr, status, e );
+   //      // If we have some XML response text (e.g. from an AJAX call) then log it in the console
+   //      else if(xhr.responseText)
+   //          console.log(xhr.responseText);
+   //  }
+   // });
   </script>
   <script src="<?=base_url();?>assets/class/AjaxFileUpload/ajaxfileupload.js"></script>
   <!-- DataTables -->
-  <script src="<?=base_url();?>assets/class/datatables.19/datatables.min.js"></script>
+  <!-- <script src="<?=base_url();?>assets/class/datatables.19/datatables.min.js"></script> -->
   <!-- <script src="<?=base_url();?>assets/class/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?=base_url();?>assets/class/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
-<!--   <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
-  <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script> -->
+  <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+  <script src="<?=base_url();?>assets/class/datatables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
 
   <!-- SlimScroll -->
   <script src="<?=base_url();?>assets/class/jquery-slimscroll/jquery.slimscroll.min.js"></script>
