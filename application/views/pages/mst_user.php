@@ -179,7 +179,7 @@
           {"data": "email",width:100},
           {"data": "status",width:100},
           {"data": "img",width:100},
-          {"data": "img",width:100}
+          {"data": "poto",width:100}
           // ,
           // {"aaData": "action",width:100}
         ],
@@ -214,12 +214,12 @@
       console.log(selection);
       if (selection=='') {}else{
         $('#mod_users').modal('show');
-        $("#username").val(selection[1]);
+        $("#username").val(selection.username);
         $("#password").val('');
-        $("#fullname").val(selection[2]);
-        $("#email").val(selection[3]);
-        $("#status").val(selection[4]);
-        $('#ava_img').val(selection[5]);
+        $("#fullname").val(selection.full_name);
+        $("#email").val(selection.email);
+        $("#status").val(selection.status);
+        $('#ava_img').val(selection.img);
         url='user_ctrl/edit';
       }
     }
@@ -305,7 +305,7 @@
 
     function deleteUser(){
       $.post(url,{
-        id: selection[0]
+        id: selection.id
       }).done(function(res){
         response = jQuery.parseJSON(res);
         console.log(response);
@@ -338,8 +338,8 @@
     }
 
     function saveUser(){
-      console.log(sts+' '+url);
       if (sts=='new') {
+        console.log(sts+' '+url);
         $.post(url,{
           username: $("#username").val(),
           password: $("#password").val(),
@@ -359,7 +359,7 @@
         });
       }else{
         $.post(url,{
-          id: selection[0],
+          id: selection.id,
           username: $("#username").val(),
           password: $("#password").val(),
           fullname: $("#fullname").val(),

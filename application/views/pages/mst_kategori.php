@@ -137,16 +137,16 @@
         "processing": true, //Feature control the processing indicator.
        // "serverSide": true, //Feature control DataTables' server-side processing mode.
         'ajax':{
-          "url": "<?=base_url()?>pages/getkat",
+          "url": "<?=base_url()?>master_ctrl/get_kat",
           "type": "POST"
         },
         'columns':[
-          {"aaData": "no",width:12},
-          {"aaData": "kode_kategori",width:100},
-          {"aaData": "nama_kategori",width:100},
-          {"aaData": "ket_kategori",width:100},
-          {"aaData": "last_update",width:100},
-          {"aaData": "user_entry",width:100}
+          {"data": "no",width:12},
+          {"data": "kode_kategori",width:100},
+          {"data": "nama_kategori",width:100},
+          {"data": "ket_kategori",width:100},
+          {"data": "last_update",width:100},
+          {"data": "user_entry",width:100}
           // ,
           // {"aaData": "action",width:100}
         ],
@@ -181,9 +181,9 @@
       console.log(selection);
       if (selection=='') {}else{
         $('#mod_kategoi').modal('show');
-        $("#kode_kategori").val(selection[1]);
-        $("#nama_kategori").val(selection[2]);
-        $("#ket_kategori").val(selection[3]);
+        $("#kode_kategori").val(selection.kode_kategori);
+        $("#nama_kategori").val(selection.nama_kategori);
+        $("#ket_kategori").val(selection.ket_kategori);
         // $("#password").val('');
         url='master_ctrl/edit';
       }
@@ -208,7 +208,7 @@
 
     function deleteKategori(){
       $.post(url,{
-        kode_kategori: selection[1]
+        kode_kategori: selection.kode_kategori
       }).done(function(res){
         response = jQuery.parseJSON(res);
         console.log(response);

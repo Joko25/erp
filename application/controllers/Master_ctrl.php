@@ -13,6 +13,22 @@ class Master_ctrl extends CI_Controller {
 
 	}
 
+	// GET
+	public function get_kat(){
+		header('Content-Type: application/json');
+    	echo $this->m_master->getkat();
+	}
+
+	public function get_sat(){
+		header('Content-Type: application/json');
+    	echo $this->m_master->getsat();
+	}
+
+	public function get_product(){
+		header('Content-Type: application/json');
+    	echo $this->m_master->getproduct();
+	}
+
 	// EDIT
 
 	public function edit(){
@@ -34,7 +50,6 @@ class Master_ctrl extends CI_Controller {
 	}
 
 	public function edit_satuan(){
-		// KATEGORI
 		$kode_satuan = trim($_POST['kode_satuan']);
 		$nama_satuan = trim($_POST['nama_satuan']);
 
@@ -47,6 +62,54 @@ class Master_ctrl extends CI_Controller {
 
 		$result = $this->m_master->update_sat($data);
 		echo json_encode($result);
+	}
+
+	public function edit_product()	{
+	    $status = "";
+	    $msg = "";
+	    $gambar = 'gambar';
+	    $kode_barang = trim($_POST['kode_barang']);
+		$nama_barang = trim($_POST['nama_barang']);
+		$kode_kategori = trim($_POST['kode_kategori']);
+		$kode_satuan = trim($_POST['kode_satuan']);
+		$harga_beli = trim($_POST['harga_beli']);
+		$harga_jual = trim($_POST['harga_jual']);
+		$spek = trim($_POST['spek']);
+	    
+        $config['upload_path'] = './assets/uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|doc|txt';
+        $config['max_size'] = 1024 * 8;
+        $config['encrypt_name'] = FALSE;
+        // $new_name = time().$_FILES["userfiles"]['name'];
+		$config['file_name'] = $kode_barang;
+ 
+        $this->load->library('upload', $config);
+        $this->upload->do_upload($gambar);
+        $sts_upload = $this->upload->display_errors('', '');
+ 		
+        $data = $this->upload->data();
+ 		if ($sts_upload == 'You did not select a file to upload.') {
+ 			# code...
+ 			$img = "";
+ 		}else{
+ 			$img = $data['file_name'];
+ 		}
+        $data_prod = array(
+			'kode_barang'=>$kode_barang,
+			'nama_barang'=>$nama_barang,
+			'kode_kategori'=>$kode_kategori,
+			'kode_satuan'=>$kode_satuan,
+			'harga_beli'=>$harga_beli,
+			'harga_jual'=>$harga_jual,
+			'gambar'=>$img,
+			'spesifikasi'=>$spek,
+			'last_update' => date('Y-m-d'),
+			'user_entry' => $this->session->userdata('nama')
+		);
+        $result = $this->m_master->update_product($data_prod);
+           
+        
+	    echo $result;
 	}
 
 	// SAVE CONTROLLERS
@@ -144,6 +207,13 @@ class Master_ctrl extends CI_Controller {
 		$kode_satuan = trim($_POST['kode_satuan']);
 
 		$result = $this->m_master->delete_sat($kode_satuan);
+		echo json_encode($result);
+	}
+
+	public function delete_product(){
+		$kode_barang = trim($_POST['kode_barang']);
+
+		$result = $this->m_master->delete_product($kode_barang);
 		echo json_encode($result);
 	}
 

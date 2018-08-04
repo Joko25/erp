@@ -22,7 +22,7 @@
               <button type="button" class="btn btn-primary btn-flat btn-sm" data-toggle="modal" onclick="newBrg()"><!-- data-target="#mod_product" -->
                 <i class="fa fa-plus"></i> New Barang
               </button>
-              <button type="button" class="btn btn-success btn-flat btn-sm" data-toggle="modal" onclick="editUser()"><!-- data-target="#mod_product" -->
+              <button type="button" class="btn btn-success btn-flat btn-sm" data-toggle="modal" onclick="editBrg()"><!-- data-target="#mod_product" -->
                 <i class="fa fa-edit"></i> Edit
               </button>
               <button type="button" class="btn btn-danger btn-flat btn-sm" data-toggle="modal" onclick="del()"><!-- data-target="#mod_product" -->
@@ -36,7 +36,7 @@
             <div class="box-body">
               <!-- BUTTON MODAL -->
               
-              <!-- MODAL USERS -->
+              <!-- MODAL -->
               <div class="modal fade" id="mod_product" tabindex="-1" role="dialog" aria-labelledby="lablemod_user">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -133,7 +133,7 @@
               </div>
 
               <!-- MODAL DELETE -->
-              <div class="modal fade" id="mod_delusers" tabindex="-1" role="dialog" aria-labelledby="lablemod_user">
+              <div class="modal fade" id="mod_del" tabindex="-1" role="dialog" aria-labelledby="lablemod_user">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -192,56 +192,34 @@
 
     $(function(){
       // Setup datatables
-      $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings){
-          return {
-              "iStart": oSettings._iDisplayStart,
-              "iEnd": oSettings.fnDisplayEnd(),
-              "iLength": oSettings._iDisplayLength,
-              "iTotal": oSettings.fnRecordsTotal(),
-              "iFilteredTotal": oSettings.fnRecordsDisplay(),
-              "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-              "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-          };
-      };
+      
       table_product = $('#tblmst_product').DataTable({
-        initComplete: function() {
-              var api = this.api();
-              $('#tblmst_product input')
-                  .off('.DT')
-                  .on('input.DT', function() {
-                      api.search(this.value).draw();
-              });
-          },
-              oLanguage: {
-              sProcessing: "loading..."
-          },processing: true,
-          serverSide: true,
-        // 'paging'      : true,
-        // 'lengthChange': false,
-        // 'searching'   : false,
-        // 'ordering'    : false,
-        // 'info'        : false,
-        // 'autoWidth'   : false,
-        // "processing"  : true, //Feature control the processing indicator.
-        // "serverSide"  : true, //Feature control DataTables' server-side processing mode.
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : false,
+        'info'        : true,
+        'autoWidth'   : false,
+        "processing": true, //Feature control the processing indicator.
+       // "serverSide": true, //Feature control DataTables' server-side processing mode.
         ajax:{
-          "url": "<?=base_url()?>pages/getproduct",
+          "url": "<?=base_url()?>master_ctrl/get_product",
           "type": "POST"
         },
         'columns':[
-          {"aaData": "no",width:12},
-          {"aaData": "kode_barang",width:100},
-          {"aaData": "nama_barang",width:100},
-          {"aaData": "kode_kategori",width:100},
-          {"aaData": "kode_satuan",width:100},
-          {"aaData": "ket_kategori",width:100},
-          {"aaData": "nama_satuan",width:100},
-          {"aaData": "spesifikasi",width:100},
-          {"aaData": "harga_beli",width:100},
-          {"aaData": "harga_jual",width:100},
-          {"aaData": "gambar",width:100},
-          {"aaData": "user_entry",width:100},
-          {"aaData": "last_update",width:100}
+          {"data": "no",width:12},
+          {"data": "kode_barang",width:100},
+          {"data": "nama_barang",width:100},
+          {"data": "kode_kategori",width:100},
+          {"data": "kode_satuan",width:100},
+          {"data": "ket_kategori",width:100},
+          {"data": "nama_satuan",width:100},
+          {"data": "spesifikasi",width:100},
+          {"data": "harga_beli",width:100},
+          {"data": "harga_jual",width:100},
+          {"data": "gambar",width:100},
+          {"data": "user_entry",width:100},
+          {"data": "last_update",width:100}
           // ,
           // {"aaData": "action",width:100}
         ],
@@ -250,14 +228,7 @@
               "targets": [3, 4, 10],
               "visible": false
           }
-        ],
-        order: [[1, 'asc']],
-          rowCallback: function(row, data, iDisplayIndex) {
-              var info = this.fnPagingInfo();
-              var page = info.iPage;
-              var length = info.iLength;
-              $('td:eq(0)', row).html();
-          }
+        ]
       });
       // getselected rows
       $('#tblmst_product tbody').on( 'click', 'tr', function () {
@@ -281,9 +252,10 @@
       getSat();
 
       $('#mst_product').submit(function(e) {
+        console.log($('#kode_barang').val()+' '+$('#nama_barang').val()+' '+$('#kode_kategori').val()+' '+$('#kode_satuan').val()+' '+$('#harga_beli').val()+' '+$('#harga_jual').val()+' '+$('#spek').val()+' '+$('#gambar').val());
         e.preventDefault();
         $.ajaxFileUpload({
-          url :'./master_ctrl/save_product', 
+          url : url, //'./master_ctrl/save_product' 
           secureuri :false,
           fileElementId :'gambar',
           // dataType : 'json',
@@ -298,6 +270,7 @@
           },
           success : function (res)
           {
+            console.log(res);
             // alert(res);
             // response = jQuery.parseJSON(res);
             // console.log(res.errorMsg);
@@ -310,6 +283,35 @@
           }
         });
         return false;
+      });
+
+
+
+      function reset(e) {
+         e.wrap('<form>').closest('form').get(0).reset();
+         e.unwrap();
+      }
+      $(".dropzone").change(function(){
+        readFile(this);
+      });
+      $('.dropzone-wrapper').on('dragover', function(e) {
+         e.preventDefault();
+         e.stopPropagation();
+         $(this).addClass('dragover');
+      });
+      $('.dropzone-wrapper').on('dragleave', function(e) {
+         e.preventDefault();
+         e.stopPropagation();
+         $(this).removeClass('dragover');
+      });
+      $('.remove-preview').on('click', function() {
+         var boxZone = $(this).parents('.preview-zone').find('.box-body');
+         var previewZone = $(this).parents('.preview-zone');
+         var dropzone = $(this).parents('.form-group').find('.dropzone');
+         boxZone.empty();
+         previewZone.addClass('hidden');
+         reset(dropzone);
+         $('.dropzone-wrapper').show();
       });
 
 
@@ -357,23 +359,52 @@
       return a;
     }
 
-    function editUser(){
+    function editBrg(){
       sts = 'edit';
       console.log(selection);
       if (selection=='') {}else{
+        $('#kode_barang').prop('disabled', true);
         $('#mod_product').modal('show');
-        $("#username").val(selection[1]);
-        $("#password").val('');
-        $("#fullname").val(selection[2]);
-        $("#email").val(selection[3]);
-        $("#status").val(selection[4]);
-        $('#ava_img').val(selection[5]);
-        url='user_ctrl/edit';
+
+        var htmlPreview = 
+        '<img width="200" src="<?=base_url()?>assets/uploads/' + selection.gambar + '" />'+
+        '<p>' + selection.gambar + '</p>';
+        var wrapperZone = $('.preview-zone').parent();
+        var previewZone = $('.preview-zone').parent().parent().find('.preview-zone');
+        var boxZone = $('.preview-zone').parent().parent().find('.preview-zone').find('.box').find('.box-body');
+       
+        wrapperZone.removeClass('dragover');
+        previewZone.removeClass('hidden');
+        boxZone.empty();
+        boxZone.append(htmlPreview);
+        $('.dropzone-wrapper').hide();
+        console.log(selection.gambar);
+        
+        $('#kode_barang').val(selection.kode_barang)
+        $('#nama_barang').val(selection.nama_barang)
+        $('#kode_kategori').val(selection.kode_kategori)
+        $('#kode_satuan').val(selection.kode_satuan)
+        $('#harga_beli').val(selection.harga_beli)
+        $('#harga_jual').val(selection.harga_jual)
+        $('#spek').val(selection.spek)
+        url='master_ctrl/edit_product';
       }
     }
 
     function newBrg(){
       sts = 'new';
+      $('#kode_barang').prop('disabled', false);
+
+
+      // var boxZone = $('.remove-preview').parents('.preview-zone').find('.box-body');
+      // var previewZone = $('.remove-preview').parents('.preview-zone');
+      // var dropzone = $('.remove-preview').parents('.form-group').find('.dropzone');
+      // boxZone.empty();
+      // previewZone.addClass('hidden');
+      // reset(dropzone);
+      // $('.dropzone-wrapper').show();
+
+
       $('#mod_product').modal('show');
       // $('#gambar').val('http://localhost/erp/assets/uploads/noimages.png');
       // var boxZone = $(this).parents('.preview-zone').find('.box-body');
@@ -387,71 +418,29 @@
       $('#harga_beli').val('');
       $('#harga_jual').val('');
       $('#spek').val('');
-      url = 'product_ctrl/save';
+      url = 'master_ctrl/save_product';
     }
 
     function del(){
       if (selection!='') {
-        $('#mod_delusers').modal('show');
-        url = 'user_ctrl/delete';
+        $('#mod_del').modal('show');
+        url = 'master_ctrl/delete_product';
       }
     }
 
     function deleteUser(){
       $.post(url,{
-        id: selection[0]
+        kode_barang: selection.kode_barang
       }).done(function(res){
         response = jQuery.parseJSON(res);
         console.log(response);
         if (response.errorMsg) {
           alert('error');
         }else{
-          $('#mod_delusers').modal('hide');
+          $('#mod_del').modal('hide');
           table_product.ajax.reload( null, false );
         }
       });
-    }
-
-    function saveUser(){
-      console.log(sts+' '+url);
-      if (sts=='new') {
-        $.post(url,{
-          username: $("#username").val(),
-          password: $("#password").val(),
-          fullname: $("#fullname").val(),
-          email: $("#email").val(),
-          status: $("#status").val(),
-          img: $('#ava_img').val()
-        }).done(function(res){
-          response = jQuery.parseJSON(res);
-          console.log(response);
-          if (response.errorMsg) {
-            alert('error');
-          }else{
-            $('#mod_product').modal('hide');
-            table_product.ajax.reload( null, false );
-          }
-        });
-      }else{
-        $.post(url,{
-          id: selection[0],
-          username: $("#username").val(),
-          password: $("#password").val(),
-          fullname: $("#fullname").val(),
-          email: $("#email").val(),
-          status: $("#status").val(),
-          img: $('#ava_img').val()
-        }).done(function(res){
-          response = jQuery.parseJSON(res);
-          console.log(response);
-          if (response.errorMsg) {
-            alert('error');
-          }else{
-            $('#mod_product').modal('hide');
-            table_product.ajax.reload( null, false );
-          }
-        });
-      }
     }
 
     // UPLOAD FILE PREVIEW
@@ -480,30 +469,5 @@
        }
     }
 
-    function reset(e) {
-       e.wrap('<form>').closest('form').get(0).reset();
-       e.unwrap();
-    }
-    $(".dropzone").change(function(){
-      readFile(this);
-    });
-    $('.dropzone-wrapper').on('dragover', function(e) {
-       e.preventDefault();
-       e.stopPropagation();
-       $(this).addClass('dragover');
-    });
-    $('.dropzone-wrapper').on('dragleave', function(e) {
-       e.preventDefault();
-       e.stopPropagation();
-       $(this).removeClass('dragover');
-    });
-    $('.remove-preview').on('click', function() {
-       var boxZone = $(this).parents('.preview-zone').find('.box-body');
-       var previewZone = $(this).parents('.preview-zone');
-       var dropzone = $(this).parents('.form-group').find('.dropzone');
-       boxZone.empty();
-       previewZone.addClass('hidden');
-       reset(dropzone);
-       $('.dropzone-wrapper').show();
-    });
+    
   </script>

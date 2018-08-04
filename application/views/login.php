@@ -97,7 +97,7 @@
     $('#alertLogin').hide();
   });
 
-  $('#')
+  // $('#')
 
   function signin(){
       var url = "<?php echo base_url('login/action_login'); ?>";

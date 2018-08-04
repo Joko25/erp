@@ -130,15 +130,15 @@
         "processing": true, //Feature control the processing indicator.
        // "serverSide": true, //Feature control DataTables' server-side processing mode.
         'ajax':{
-          "url": "<?=base_url()?>pages/getsat",
+          "url": "<?=base_url()?>master_ctrl/get_sat",
           "type": "POST"
         },
         'columns':[
-          {"aaData": "no",width:12},
-          {"aaData": "kode_satuan",width:100},
-          {"aaData": "nama_satuan",width:100},
-          {"aaData": "last_update",width:100},
-          {"aaData": "user_entry",width:100}
+          {"data": "no",width:12},
+          {"data": "kode_satuan",width:100},
+          {"data": "nama_satuan",width:100},
+          {"data": "last_update",width:100},
+          {"data": "user_entry",width:100}
           // ,
           // {"aaData": "action",width:100}
         ]
@@ -167,8 +167,8 @@
       console.log(selection);
       if (selection=='') {}else{
         $('#mod_satuan').modal('show');
-        $("#kode_satuan").val(selection[1]);
-        $("#nama_satuan").val(selection[2]);
+        $("#kode_satuan").val(selection.kode_satuan);
+        $("#nama_satuan").val(selection.nama_satuan);
         // $("#password").val('');
         url='master_ctrl/edit_satuan';
       }
@@ -192,7 +192,7 @@
 
     function deletesatuan(){
       $.post(url,{
-        kode_satuan: selection[1]
+        kode_satuan: selection.kode_satuan
       }).done(function(res){
         response = jQuery.parseJSON(res);
         console.log(response);

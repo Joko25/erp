@@ -5,33 +5,36 @@ class M_master extends CI_Model{
 	// GET MASTER
 	public function getuser(){		
 		$this->datatables->select('id, username, full_name, email, status, img');
+        $this->datatables->add_column('poto', '<img src="'.base_url().'assets/img/$1" width=20> $1', 'img');
         $this->datatables->from('admin');
-        $this->datatables->add_column('img', '<img src="'.base_url().'assets/img/$1" width=20> $1', 'img');
         return $this->datatables->generate();
 	}
 
 	public function getkat(){
-		$this->datatables->select('0, kode_kategori, nama_kategori, ket_kategori, last_update, user_entry');
+		$this->datatables->select('kode_kategori, nama_kategori, ket_kategori, last_update, user_entry');
+		$this->datatables->add_column('no', '0');
         $this->datatables->from('mst_kategori');
 
-        return print_r($this->datatables->generate());
+        return $this->datatables->generate();
 	}
 
 	public function getsat(){
-		$this->datatables->select('0, kode_satuan, nama_satuan, last_update, user_entry');
+		$this->datatables->select('kode_satuan, nama_satuan, last_update, user_entry');
+		$this->datatables->add_column('no', '0');
         $this->datatables->from('mst_satuan');
 
-        return print_r($this->datatables->generate());
+        return $this->datatables->generate();
 	}
 
 	public function getproduct(){
-		$this->datatables->select('0, mst_product.kode_barang, mst_product.nama_barang, mst_product.kode_kategori, mst_product.kode_satuan, mst_kategori.ket_kategori, mst_satuan.nama_satuan, mst_product.spesifikasi, mst_product.harga_beli, mst_product.harga_jual, mst_product.gambar,  mst_product.last_update, mst_product.user_entry');
+		$this->datatables->select('mst_product.kode_barang, mst_product.nama_barang, mst_product.kode_kategori, mst_product.kode_satuan, mst_kategori.ket_kategori, mst_satuan.nama_satuan, mst_product.spesifikasi, mst_product.harga_beli, mst_product.harga_jual, mst_product.gambar,  mst_product.last_update, mst_product.user_entry');
+		$this->datatables->add_column('no', '0');
 		// $this->datatables->add_column('mst_product.gambar', '<img src="'.base_url().'assets/uploads/$1" width=20> $1', 'mst_product.gambar');
         $this->datatables->from('mst_product');
         $this->datatables->join('mst_kategori', 'mst_product.kode_kategori=mst_kategori.kode_kategori');
         $this->datatables->join('mst_satuan', 'mst_product.kode_satuan=mst_satuan.kode_satuan');
 
-        return print_r($this->datatables->generate());
+        return $this->datatables->generate();
 	}
 
 	public function get_editusr($where) {
@@ -110,6 +113,43 @@ class M_master extends CI_Model{
 	}
 
 	// EDIT
+
+	public function update_product($data){
+		$kode_barang = $data['kode_barang'];
+		$nama_barang = $data['nama_barang'];
+		$kode_kategori = $data['kode_kategori'];
+		$kode_satuan = $data['kode_satuan'];
+		$harga_beli = $data['harga_beli'];
+		$harga_jual = $data['harga_jual'];
+		$gambar = $data['gambar'];
+		$spesifikasi = $data['spesifikasi'];
+		$last_update = $data['last_update'];
+		$user_entry = $data['user_entry'];
+
+		$this->db->set('nama_barang', $nama_barang);
+		$this->db->set('kode_kategori', $kode_kategori);
+		$this->db->set('kode_satuan', $kode_satuan);
+		$this->db->set('harga_beli', $harga_beli);
+		$this->db->set('harga_jual', $harga_jual);
+		if ($gambar !='') {
+			# code...
+			$this->db->set('gambar', $gambar);
+		}
+		$this->db->set('spesifikasi', $spesifikasi);
+		$this->db->set('last_update', $last_update);
+		$this->db->set('user_entry', $user_entry);
+		
+
+		$this->db->where('kode_barang', $kode_barang);
+
+		$query = $this->db->update('mst_product');
+		if ($query) {
+			# code...
+			return json_encode('success');
+		}else{
+			return json_encode(array('errorMsg'=>'Dupplicate Name'));
+		}
+	}
 
 	public function update_usr($data){
 		$id = $data['id'];
@@ -211,6 +251,17 @@ class M_master extends CI_Model{
 	public function delete_sat($kode){
 		$this->db->where('kode_satuan', $kode);
 		$query = $this->db->delete('mst_satuan');
+		if ($query) {
+			# code...
+			return json_encode('success');
+		}else{
+			return json_encode(array('errorMsg'=>'Dupplicate Name'));
+		}
+	}
+
+	public function delete_product($kode){
+		$this->db->where('kode_barang', $kode);
+		$query = $this->db->delete('mst_product');
 		if ($query) {
 			# code...
 			return json_encode('success');

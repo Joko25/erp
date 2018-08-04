@@ -70,7 +70,8 @@ class User_ctrl extends CI_Controller {
 			'full_name' => $fullname,
 			'email' => $email,
 			'status' => $status,
-			'img' => $img
+			'img' => $img,
+			'jenis_kelamin'=> '0'
 		);
 
 		$result = $this->m_master->save_usr($data);
