@@ -44,7 +44,7 @@
           <ul class="treeview-menu">
             <!-- <li><a href="mst_user"><i class="fa fa-circle-o"></i>Master User</a></li> -->
             <li><a href="mst_product"><i class="fa fa-circle-o"></i>Master Barang</a></li>
-            <li><a href="mst_user"><i class="fa fa-circle-o"></i>Master Supplier</a></li>
+            <li><a href="mst_supplier"><i class="fa fa-circle-o"></i>Master Supplier</a></li>
             <li><a href="mst_user"><i class="fa fa-circle-o"></i>Master Pelanggan</a></li>
             <li><a href="mst_kategori"><i class="fa fa-circle-o"></i>Master Kategori</a></li>
             <li><a href="mst_unit"><i class="fa fa-circle-o"></i>Master Satuan</a></li>

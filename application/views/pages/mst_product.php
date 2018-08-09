@@ -277,6 +277,7 @@
             if (res.errorMsg) {
               alert('error '+res.errorMsg);
             }else{
+              location.reload();
               $('#mod_product').modal('hide');
               table_product.ajax.reload( null, false );
             }

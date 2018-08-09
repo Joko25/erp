@@ -29,6 +29,11 @@ class Master_ctrl extends CI_Controller {
     	echo $this->m_master->getproduct();
 	}
 
+	public function get_supplier(){
+		header('Content-Type: application/json');
+    	echo $this->m_master->getsupplier();
+	}
+
 	// EDIT
 
 	public function edit(){
@@ -61,6 +66,28 @@ class Master_ctrl extends CI_Controller {
 		);
 
 		$result = $this->m_master->update_sat($data);
+		echo json_encode($result);
+	}
+
+	public function edit_supplier(){
+
+		$kode_supplier = trim($_POST['kode_supplier']);
+		$nama_supplier = trim($_POST['nama_supplier']);
+		$alamat_supplier = trim($_POST['alamat_supplier']);
+		$telp_supplier = trim($_POST['telp_supplier']);
+		$ket_supplier = trim($_POST['ket_supplier']);
+
+		$data = array(
+			'kode_supplier' => $kode_supplier,
+			'nama_supplier' => $nama_supplier,
+			'alamat_supplier' => $alamat_supplier,
+			'telp_supplier' => $telp_supplier,
+			'ket_supplier' => $ket_supplier,
+			'last_update' => date('Y-m-d'),
+			'user_entry' => $this->session->userdata('nama')
+		);
+
+		$result = $this->m_master->update_supplier($data);
 		echo json_encode($result);
 	}
 
@@ -146,6 +173,28 @@ class Master_ctrl extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function save_supplier(){
+		// supplier
+		// $nama_satuan = trim($_POST['nama_satuan']);
+		$kode_supplier = trim($_POST['kode_supplier']);
+		$nama_supplier = trim($_POST['nama_supplier']);
+		$alamat_supplier = trim($_POST['alamat_supplier']);
+		$telp_supplier = trim($_POST['telp_supplier']);
+		$ket_supplier = trim($_POST['ket_supplier']);
+
+		$data = array(
+			'nama_supplier' => $nama_supplier,
+			'alamat_supplier' => $alamat_supplier,
+			'telp_supplier' => $telp_supplier,
+			'ket_supplier' => $ket_supplier,
+			'last_update' => date('Y-m-d'),
+			'user_entry' => $this->session->userdata('nama')
+		);
+
+		$result = $this->m_master->save_supplier($data);
+		echo json_encode($result);
+	}
+
 	public function save_product()	{
 	    $status = "";
 	    $msg = "";
@@ -207,6 +256,13 @@ class Master_ctrl extends CI_Controller {
 		$kode_satuan = trim($_POST['kode_satuan']);
 
 		$result = $this->m_master->delete_sat($kode_satuan);
+		echo json_encode($result);
+	}
+
+	public function delete_supplier(){
+		$kode_supplier = trim($_POST['kode_supplier']);
+
+		$result = $this->m_master->delete_supplier($kode_supplier);
 		echo json_encode($result);
 	}
 
