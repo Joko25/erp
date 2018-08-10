@@ -31,10 +31,3 @@ https://medium.com/@purnama.anaking/cara-simple-membuat-drag-and-drop-image-uplo
 
 #query builder
 https://www.codeigniter.com/userguide3/database/query_builder.html
-
-
-mysql :
-host: mysql.hostinger.co.id
-db: u899387635_mm
-username: u899387635_mm
-password: mm@123#

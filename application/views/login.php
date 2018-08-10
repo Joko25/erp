@@ -30,7 +30,8 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="login"><b>NG-</b>ERP</a>
+    <!-- <a href="login"><b>NG-</b>ERP</a> -->
+    <img src="<?=base_url()?>assets/img/logo.png" width="50%">
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

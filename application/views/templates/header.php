@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>NG-ERP | <?=$title?></title>
+  <title>MilkMoment | <?=$title?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -76,9 +76,10 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>NG</b>O</span>
+      <span class="logo-mini"><b>M</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>NG-</b>ERP</span>
+      <!-- <span class="logo-lg"><b>Milk</b>Moment</span> -->
+      <span class="logo-lg"><img src="<?=base_url()?>assets/img/logo_putih.png" width="50%"></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

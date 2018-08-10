@@ -34,6 +34,14 @@ class M_master extends CI_Model{
         return $this->datatables->generate();
 	}
 
+	public function getcustomer(){
+		$this->datatables->select('kode_customer, nama_customer, alamat_customer, telp_customer, ket_customer');
+		$this->datatables->add_column('no', '0');
+        $this->datatables->from('mst_customer');
+
+        return $this->datatables->generate();
+	}
+
 	public function getproduct(){
 		$this->datatables->select('mst_product.kode_barang, mst_product.nama_barang, mst_product.kode_kategori, mst_product.kode_satuan, mst_kategori.ket_kategori, mst_satuan.nama_satuan, mst_product.spesifikasi, mst_product.harga_beli, mst_product.harga_jual, mst_product.gambar,  mst_product.last_update, mst_product.user_entry');
 		$this->datatables->add_column('no', '0');
@@ -112,6 +120,16 @@ class M_master extends CI_Model{
 
 	public function save_supplier($data){
 		$query = $this->db->insert('mst_supplier', $data);
+		if ($query) {
+			# code...
+			return json_encode('success');
+		}else{
+			return json_encode(array('errorMsg'=>'Dupplicate Name'));
+		}
+	}
+
+	public function save_customer($data){
+		$query = $this->db->insert('mst_customer', $data);
 		if ($query) {
 			# code...
 			return json_encode('success');
@@ -271,6 +289,36 @@ class M_master extends CI_Model{
 		}
 	}
 
+	public function update_customer($data){
+
+		$kode_customer = $data['kode_customer'];
+		$nama_customer = $data['nama_customer'];
+		$alamat_customer = $data['alamat_customer'];
+		$telp_customer = $data['telp_customer'];
+		$ket_customer = $data['ket_customer'];
+		$last_update = $data['last_update'];
+		$user_entry = $data['user_entry'];
+
+		
+		$this->db->set('nama_customer', $nama_customer);
+		$this->db->set('alamat_customer', $alamat_customer);
+		$this->db->set('telp_customer', $telp_customer);
+		$this->db->set('ket_customer', $ket_customer);
+		$this->db->set('last_update', $last_update);
+		$this->db->set('user_entry', $user_entry);
+		
+		$this->db->where('kode_customer', $kode_customer);
+		
+
+		$query = $this->db->update('mst_customer');
+		if ($query) {
+			# code...
+			return json_encode('success');
+		}else{
+			return json_encode(array('errorMsg'=>'Dupplicate Name'));
+		}
+	}
+
 
 	// DELETE
 
@@ -310,6 +358,17 @@ class M_master extends CI_Model{
 	public function delete_supplier($kode){
 		$this->db->where('kode_supplier', $kode);
 		$query = $this->db->delete('mst_supplier');
+		if ($query) {
+			# code...
+			return json_encode('success');
+		}else{
+			return json_encode(array('errorMsg'=>'Dupplicate Name'));
+		}
+	}
+
+	public function delete_customer($kode){
+		$this->db->where('kode_customer', $kode);
+		$query = $this->db->delete('mst_customer');
 		if ($query) {
 			# code...
 			return json_encode('success');

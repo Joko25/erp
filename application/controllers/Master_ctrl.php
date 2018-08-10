@@ -34,6 +34,11 @@ class Master_ctrl extends CI_Controller {
     	echo $this->m_master->getsupplier();
 	}
 
+	public function get_customer(){
+		header('Content-Type: application/json');
+    	echo $this->m_master->getcustomer();
+	}
+
 	// EDIT
 
 	public function edit(){
@@ -88,6 +93,28 @@ class Master_ctrl extends CI_Controller {
 		);
 
 		$result = $this->m_master->update_supplier($data);
+		echo json_encode($result);
+	}
+
+	public function edit_customer(){
+
+		$kode_customer = trim($_POST['kode_customer']);
+		$nama_customer = trim($_POST['nama_customer']);
+		$alamat_customer = trim($_POST['alamat_customer']);
+		$telp_customer = trim($_POST['telp_customer']);
+		$ket_customer = trim($_POST['ket_customer']);
+
+		$data = array(
+			'kode_customer' => $kode_customer,
+			'nama_customer' => $nama_customer,
+			'alamat_customer' => $alamat_customer,
+			'telp_customer' => $telp_customer,
+			'ket_customer' => $ket_customer,
+			'last_update' => date('Y-m-d'),
+			'user_entry' => $this->session->userdata('nama')
+		);
+
+		$result = $this->m_master->update_customer($data);
 		echo json_encode($result);
 	}
 
@@ -195,6 +222,28 @@ class Master_ctrl extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function save_customer(){
+		// supplier
+		// $nama_satuan = trim($_POST['nama_satuan']);
+		$kode_customer = trim($_POST['kode_customer']);
+		$nama_customer = trim($_POST['nama_customer']);
+		$alamat_customer = trim($_POST['alamat_customer']);
+		$telp_customer = trim($_POST['telp_customer']);
+		$ket_customer = trim($_POST['ket_customer']);
+
+		$data = array(
+			'nama_customer' => $nama_customer,
+			'alamat_customer' => $alamat_customer,
+			'telp_customer' => $telp_customer,
+			'ket_customer' => $ket_customer,
+			'last_update' => date('Y-m-d'),
+			'user_entry' => $this->session->userdata('nama')
+		);
+
+		$result = $this->m_master->save_customer($data);
+		echo json_encode($result);
+	}
+
 	public function save_product()	{
 	    $status = "";
 	    $msg = "";
@@ -263,6 +312,13 @@ class Master_ctrl extends CI_Controller {
 		$kode_supplier = trim($_POST['kode_supplier']);
 
 		$result = $this->m_master->delete_supplier($kode_supplier);
+		echo json_encode($result);
+	}
+
+	public function delete_customer(){
+		$kode_customer = trim($_POST['kode_customer']);
+
+		$result = $this->m_master->delete_customer($kode_customer);
 		echo json_encode($result);
 	}
 
