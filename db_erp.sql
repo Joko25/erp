@@ -47,6 +47,35 @@ INSERT INTO `admin` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','Admini
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mst_customer`
+--
+
+DROP TABLE IF EXISTS `mst_customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mst_customer` (
+  `kode_customer` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_customer` varchar(45) DEFAULT NULL,
+  `alamat_customer` varchar(45) DEFAULT NULL,
+  `telp_customer` varchar(15) DEFAULT NULL,
+  `ket_customer` varchar(45) DEFAULT NULL,
+  `last_update` date DEFAULT NULL,
+  `user_entry` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`kode_customer`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mst_customer`
+--
+
+LOCK TABLES `mst_customer` WRITE;
+/*!40000 ALTER TABLE `mst_customer` DISABLE KEYS */;
+INSERT INTO `mst_customer` VALUES (2,'Customer 1','Alamatnya','','','2018-08-10','admin'),(3,'Customer 2','Alamatnya','','','2018-08-10','admin');
+/*!40000 ALTER TABLE `mst_customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `mst_kategori`
 --
 
@@ -174,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-09 23:32:42
+-- Dump completed on 2018-08-10 22:32:37
