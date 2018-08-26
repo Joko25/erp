@@ -76,7 +76,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="simple"><i class="fa fa-circle-o"></i> Regist part Supplier</a></li>
-            <li><a href="data"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
+            <li><a href="purchase_order"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
             <li><a href="data"><i class="fa fa-circle-o"></i> Historical PO</a></li>
           </ul>
         </li>

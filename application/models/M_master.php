@@ -75,8 +75,43 @@ class M_master extends CI_Model{
 	    }
 	}
 
+	public function jsonsupplier(){
+		// $this->db->select('kode_supplier, nama_supplier, alamat_supplier');
+        $query = $this->db->get('mst_supplier');
+
+        if ($query->num_rows() > 0) {
+	        return $query->result();
+	    } else {
+	        return false;
+	    }
+
+	}
+
 	public function jsonsat() {
 	    $query = $this->db->get('mst_satuan');
+	    // echo $query;
+
+	    if ($query->num_rows() > 0) {
+	        return $query->result();
+	    } else {
+	        return false;
+	    }
+	}
+
+	public function jsonproduct() {
+	    $query = $this->db->get('mst_product');
+	    // echo $query;
+
+	    if ($query->num_rows() > 0) {
+	        return $query->result();
+	    } else {
+	        return false;
+	    }
+	}
+
+	public function jsonproductdtl($where) {
+		// $this->db->where();
+	    $query = $this->db->get_where('mst_product', $where);
 	    // echo $query;
 
 	    if ($query->num_rows() > 0) {

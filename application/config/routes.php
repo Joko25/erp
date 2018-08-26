@@ -58,5 +58,6 @@ $route['(:any)'] = 'pages/view/$1';
 $route['pages/(:any)'] = "pages/$1";
 $route['user_ctrl/(:any)'] = "user_ctrl/$1";
 $route['master_ctrl/(:any)'] = "master_ctrl/$1";
+$route['purchase_ctrl/(:any)'] = "purchase_ctrl/$1";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

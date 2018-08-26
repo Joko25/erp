@@ -4,6 +4,7 @@ https://www.sandro.id/artikel/28-tutorial-pagination-server-side-ajax-pada-datat
 https://mbahcoding.com/tutorial/php/codeigniter/codeigniter-simple-server-side-datatable-example.html
 https://www.patchesoft.com/using-datatables-with-codeigniter-tutorial
 http://mfikri.com/artikel/crud-dengan-ignited-datatables-pada-codeigniter.html
+https://datatables.net/examples/api/add_row.html
 
 # Login Tutorial
 https://www.malasngoding.com/membuat-login-dengan-codeigniter/

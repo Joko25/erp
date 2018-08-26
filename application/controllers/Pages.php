@@ -77,6 +77,15 @@ class Pages extends CI_Controller
 		$get = $this->m_master->getproduct();
 		return $get;
 	}
+
+	public function jsonsupplier(){
+		// $get = $this->m_master->jsonsupplier();
+		// return $get;
+		$get = $this->m_master->jsonsupplier();
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($get));
+	}
+
 	public function jsonkat(){
 		$get = $this->m_master->jsonkat();
 		$this->output->set_content_type('application/json')
@@ -85,6 +94,24 @@ class Pages extends CI_Controller
 	}
 	public function jsonsat(){
 		$get = $this->m_master->jsonsat();
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($get));
+		// return echo $get;
+	}
+
+	public function jsonproduct(){
+		$get = $this->m_master->jsonproduct();
+		$this->output->set_content_type('application/json')
+                 ->set_output(json_encode($get));
+		// return echo $get;
+	}
+
+	public function getBarangdtl(){
+		$kode_barang = $_POST['kode_barang'];
+		$where =  array(
+			'kode_barang'=> $kode_barang
+		);
+		$get = $this->m_master->jsonproductdtl($where);
 		$this->output->set_content_type('application/json')
                  ->set_output(json_encode($get));
 		// return echo $get;
