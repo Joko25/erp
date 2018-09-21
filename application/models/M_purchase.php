@@ -16,6 +16,23 @@ class M_purchase extends CI_Model{
 	    }
 	}
 
+	public function save($data){
+		$isidata = $data['data'];
+		$no_faktur = $data['no_faktur'];
+		$kode_supplier = $data['kode_supplier'];
+		$ket_po = $data['ket_po'];
+		$po_subtotal = $data['po_subtotal'];
+		$po_disc = $data['po_disc'];
+		$po_discnominal = $data['po_discnominal'];
+		$po_dp = $data['po_dp'];
+		$po_ppn = $data['po_ppn'];
+		$po_grandtotal = $data['po_grandtotal'];
+		$last_update = $data['last_update'];
+		$user_entry = $data['user_entry'];
+
+		return $data;
+	}
+
 	public function deletepo(){
 		$this->db->where('kode_po', '1');
 		$query = $this->db->delete('po_master');

@@ -76,7 +76,7 @@
                           <div class="form-group">
                             <label class="col-sm-3" for="ket_customer">Keterangan</label>
                             <div class="col-sm-9">
-                              <textarea class="form-control" id="ket_customer" name="ket_customer" placeholder="Keterangan" required></textarea>
+                              <textarea class="form-control" id="ket_po" name="ket_po" placeholder="Keterangan" required></textarea>
                             </div>
                           </div>
                           <div class="form-group">
@@ -286,7 +286,7 @@
         },
         'columns':[
           {"data": "no",width:12},
-          {"data": "kode_customer",width:100},
+          {"data": "kode_supplier",width:100},
           {"data": "nama_customer",width:100},
           {"data": "alamat_customer",width:100},
           {"data": "telp_customer",width:100},
@@ -348,7 +348,7 @@
       if (selection=='') {}else{
         $('#mod_customer').modal('show');
 
-        $('#kode_customer').val(selection.kode_customer);
+        $('#kode_supplier').val(selection.kode_supplier);
         $('#nama_customer').val(selection.nama_customer);
         $('#alamat_customer').val(selection.alamat_customer);
         $('#telp_customer').val(selection.telp_customer);
@@ -411,12 +411,18 @@
 
       $('#no_faktur').val(faktur);
 
-      $('#kode_customer').val('');
+      $('#kode_supplier').val('');
       $('#nama_customer').val('');
       $('#alamat_customer').val('');
       $('#telp_customer').val('');
-      $('#ket_customer').val('');
-      url = 'master_ctrl/save_customer';
+      $('#ket_po').val('');
+      $('#po_subtotal').val('');
+      $('#po_disc').val('');
+      $('#po_discnominal').val('');
+      $('#po_dp').val('');
+      $('#po_ppn').val('');
+      $('#po_grandtotal').val('');
+      url = 'purchase_ctrl/save_po';
     }
 
     function deleteBrg(){
@@ -658,7 +664,7 @@
 
     function deleteCustomer(){
       $.post(url,{
-        kode_customer: selection.kode_customer
+        kode_supplier: selection.kode_supplier
       }).done(function(res){
         response = jQuery.parseJSON(res);
         console.log(response);
@@ -674,28 +680,70 @@
     function savePO(){
 
       var data = tbl_po_entry.rows().data();
-      console.log(data+' '+sts+' '+url);
+      // console.log(data.length+' '+sts+' '+url);
+      var total = data.length;
 
+      var jsonString = JSON.stringify(data);
+      
+
+      var no_faktur = $('#no_faktur').val();
+
+      var kode_supplier = $('#kode_supplier').val();
+      // var nama_customer = $('#nama_customer').val();
+      var alamat_customer = $('#alamat_customer').val();
+      // var telp_customer = $('#telp_customer').val();
+      var ket_po = $('#ket_po').val();
+      var po_subtotal = $('#po_subtotal').val();
+      var po_disc = $('#po_disc').val();
+      var po_discnominal = $('#po_discnominal').val();
+      var po_dp = $('#po_dp').val();
+      var po_ppn = $('#po_ppn').val();
+      var po_grandtotal = $('#po_grandtotal').val();
+
+      console.log(url+' '+data[0]);
+
+      // $.post(url, {
+        
+      // });
       // if (sts=='new') {
-      //   $.post(url,{
-      //     kode_customer:$('#kode_customer').val(),
-      //     nama_customer:$('#nama_customer').val(),
-      //     alamat_customer:$('#alamat_customer').val(),
-      //     telp_customer:$('#telp_customer').val(),
-      //     ket_customer:$('#ket_customer').val()
-      //   }).done(function(res){
-      //     response = jQuery.parseJSON(res);
-      //     console.log(response);
-      //     if (response.errorMsg) {
-      //       alert('error');
-      //     }else{
-      //       $('#mod_customer').modal('hide');
-      //       table_po.ajax.reload( null, false );
-      //     }
-      //   });
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+              data: jsonString,
+              no_faktur: no_faktur,
+              kode_supplier: kode_supplier,
+              // nama_customer: nama_customer,
+              alamat_customer: alamat_customer,
+              // telp_customer: telp_customer,
+              ket_po: ket_po,
+              po_subtotal: po_subtotal,
+              po_disc: po_disc,
+              po_discnominal: po_discnominal,
+              po_dp: po_dp,
+              po_ppn: po_ppn,
+              po_grandtotal: po_grandtotal
+            }, 
+            cache: false,
+            success: function(res){
+                console.log(res);
+            }
+        });
+        // $.post(url,{
+          
+        // }).done(function(res){
+          // response = jQuery.parseJSON(res);
+          // console.log(response);
+          // if (response.errorMsg) {
+          //   alert('error');
+          // }else{
+          //   $('#mod_customer').modal('hide');
+          //   table_po.ajax.reload( null, false );
+          // }
+        // });
       // }else{
       //   $.post(url,{
-      //     kode_customer:$('#kode_customer').val(),
+      //     kode_supplier:$('#kode_supplier').val(),
       //     nama_customer:$('#nama_customer').val(),
       //     alamat_customer:$('#alamat_customer').val(),
       //     telp_customer:$('#telp_customer').val(),
